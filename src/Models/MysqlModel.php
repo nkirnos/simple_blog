@@ -17,6 +17,7 @@ class MysqlModel
         }
     }
 
+    
     public static function all()
     {
         $instance = new static($connection = 'default');

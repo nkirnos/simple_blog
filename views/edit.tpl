@@ -51,34 +51,30 @@
 
       <div class="row">
 
-        <div class="col-sm-8 blog-main">
-          <?php foreach($posts as $post):?>
-          <div class="blog-post">
-            <h2 class="blog-post-title"><?=$post->title?></h2>
-            <p class="blog-post-meta"><?=Date('Y-m-d', strtotime($post->updated_at));?></p>
-            <?php if(!empty($post->img_path)):?><img src="<?=$post->img_path?>"><?php endif;?>
-            <?=$post->html?>
-            
-          </div><!-- /.blog-post -->
-          <?php endforeach;?>
-          
-
-          
-
-        </div><!-- /.blog-main -->
-
-        <div class="col-sm-3 col-sm-offset-1 blog-sidebar">
-          
-          <div class="sidebar-module">
-            <h4>Управление</h4>
-            <ol class="list-unstyled">
-              <li><a href="/posts">Список записей</a></li>
-              <li><a href="/posts/new">Новый пост</a></li>
-              
-            </ol>
+        <div class="col-sm-12">
+        <form id='new_post'>
+          <input type='hidden' id='id' value="">
+          <div class="form-group">
+            <label for="inputTitle">Заголовок</label>
+            <input type="text" class="form-control" id="inputTitle" placeholder="Заголовок поста">
+          </div>
+          <div class="form-group">
+            <label for="inputUrl">Ссылка на картинку</label>
+            <input type="text" class="form-control" id="inputUrl" placeholder="Ссылка на картинку">
           </div>
           
-        </div><!-- /.blog-sidebar -->
+          <div class="form-group">
+            <label for="exampleInputFile">Загрузить картинку</label>
+            <input type="file" id="InputFile">
+            <p class="help-block">Загруженное изображение перезапишет поле с ссылкой на картинку</p>
+          </div>
+          <div class="form-group">
+            <textarea class="form-control" id='html' rows="10" placeholder="Текст поста"></textarea>
+          </div>
+          
+          <button type="button" class="btn btn-default" id='submit'>Сохранить</button>
+        </form>
+        </div>
 
       </div><!-- /.row -->
 
@@ -99,5 +95,32 @@
     <script src="/js/bootstrap.min.js"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="/js/ie10-viewport-bug-workaround.js"></script>
+    <script>
+      $(function() {
+        $('form#new_post button#submit').click(function(){
+          var file_data = $('#InputFile').prop('files')[0];   
+          var form_data = new FormData(); 
+          if(typeof file_data != 'undefined'){
+            form_data.append('file', file_data);
+          }
+          form_data.append('id', $('#id').val());
+          form_data.append('title', $('#inputTitle').val());
+          form_data.append('url', $('#inputUrl').val());
+          form_data.append('html', $('#html').val());
+          $.ajax({
+            url: '/posts',
+            dataType: 'text',
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,                         
+            type: 'post',
+            success: function(data){
+                alert(data);
+            }
+          });
+        });
+      });
+    </script>
   </body>
 </html>
