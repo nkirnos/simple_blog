@@ -16,4 +16,9 @@ class Controller
     {
         echo get_class($this);
     }
+
+    public function redirect($url, $http_response_code = 301, $replace = true)
+    {
+        header( sprintf('Location: %s', $url) , $replace, $http_response_code );
+    }
 }

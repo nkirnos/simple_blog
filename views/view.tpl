@@ -52,16 +52,15 @@
       <div class="row">
 
         <div class="col-sm-8 blog-main">
-          <?php foreach($posts as $post):?>
+          <?php if(isset($post) && !empty($post)):?>
           <div class="blog-post">
             <h2 class="blog-post-title"><?=$post->title?></h2>
-            <p class="blog-post-meta"><?=Date('Y-m-d', strtotime($post->updated_at));?> <a href="/post/delete?id=<?=$post->id?>">Удалить</a> <a href="/post/edit?id=<?=$post->id?>">Редактировать</a></p>
+            <p class="blog-post-meta"><?=Date('Y-m-d', strtotime($post->updated_at));?> <a href="/post/delete?id=<?=$post->id?>">Удалить</a></p>
             <?php if(!in_array($post->img_path, [null, ''])):?><img width="400" align="left" style="padding: 0 15px" src="<?=$post->img_path?>"><?php endif;?>
             <?=$post->html?>
-            <br/>
-            <a href="/post?id=<?=$post->id?>">Подробнее</a>
+            
           </div><!-- /.blog-post -->
-          <?php endforeach;?>
+          <?php endif;?>
           
 
           

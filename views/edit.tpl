@@ -56,11 +56,11 @@
           <input type='hidden' id='id' value="">
           <div class="form-group">
             <label for="inputTitle">Заголовок</label>
-            <input type="text" class="form-control" id="inputTitle" placeholder="Заголовок поста">
+            <input type="text" class="form-control" id="inputTitle" placeholder="Заголовок поста" value="<?=$post->title?>">
           </div>
           <div class="form-group">
             <label for="inputUrl">Ссылка на картинку</label>
-            <input type="text" class="form-control" id="inputUrl" placeholder="Ссылка на картинку">
+            <input type="text" class="form-control" id="inputUrl" placeholder="Ссылка на картинку" value="<?=$post->img_path?>">
           </div>
           
           <div class="form-group">
@@ -69,7 +69,7 @@
             <p class="help-block">Загруженное изображение перезапишет поле с ссылкой на картинку</p>
           </div>
           <div class="form-group">
-            <textarea class="form-control" id='html' rows="10" placeholder="Текст поста"></textarea>
+            <textarea class="form-control" id='html' rows="10" placeholder="Текст поста"><?=$post->html?></textarea>
           </div>
           
           <button type="button" class="btn btn-default" id='submit'>Сохранить</button>
